@@ -16,7 +16,7 @@ class FocasImage(object):
     mask = None
 
     def loadImage(self):
-        path='/home/chyan/FOCAS/mospointing/'
+        path='/Volumes/Disk/FOCAS/mospointing/'
 
         try:
             self.star.raw1=fits.open(path+'FCSA00125883.fits',memmap=False)[0]
@@ -26,9 +26,9 @@ class FocasImage(object):
             self.mask.ch1=fits.open(path+'FCSA00125886.fits',memmap=False)[0]
         
         except IOError as e:
-            caller = getframeinfo(stack()[1][0])
             print("{0}:{1}({2}) I/O error[{3}]: \n  {4}:'{5}'".format(
-                caller.filename, stack()[0][3], sys.exc_traceback.tb_lineno , 
+                os.path.basename(stack()[0][1]), stack()[0][3], 
+                sys.exc_info()[2].tb_lineno , 
                 e.errno,e.strerror, e.filename))
             raise  
 

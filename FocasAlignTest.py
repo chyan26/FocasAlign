@@ -14,11 +14,12 @@ def fileIO():
         f.closeImage()
 
     except IOError as e:
-        caller = getframeinfo(stack()[1][0])
         print("{0}:{1}({2}) I/O error[{3}]: \n  {4}:'{5}'".format(
-                caller.filename, stack()[0][3], sys.exc_traceback.tb_lineno , 
+                os.path.basename(stack()[0][1]), stack()[0][3], 
+                sys.exc_info()[2].tb_lineno , 
                 e.errno,e.strerror, e.filename))
-        raise  
+        raise
+        #pass  
 
 
 
@@ -29,12 +30,12 @@ def main():
         print("done\n") 
 
 
-    except IOError as e:
-        caller = getframeinfo(stack()[1][0])
+    except FileNotFoundError as e:
         print("{0}:{1}({2}) I/O error[{3}]: \n  {4}:'{5}'".format(
-                caller.filename, stack()[0][3], sys.exc_traceback.tb_lineno , 
+                os.path.basename(stack()[0][1]), stack()[0][3], 
+                sys.exc_info()[2].tb_lineno , 
                 e.errno,e.strerror, e.filename))
-        raise 
+        raise
 
 if __name__ == '__main__':
     try:
